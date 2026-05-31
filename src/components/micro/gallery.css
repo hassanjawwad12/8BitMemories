@@ -1,0 +1,35 @@
+/* TEMPORARY (Phase 2) — contact-sheet layout for the micro-animation engine. */
+.gallery {
+  position: absolute;
+  inset: 0;
+  overflow: auto;
+  padding: var(--space-6);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--space-4);
+  align-content: start;
+}
+
+.gallery-cell {
+  margin: 0;
+  background: var(--chrome-face);
+  box-shadow: var(--bevel-out);
+  padding: var(--space-2);
+}
+
+.gallery-stage {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  width: 100%;
+  box-shadow: var(--bevel-in);
+  overflow: hidden;
+}
+
+.gallery-cell figcaption {
+  margin-top: var(--space-2);
+  text-align: center;
+  font-family: var(--font-pixel);
+  font-size: var(--text-sm);
+  color: var(--chrome-text);
+  letter-spacing: 0.05em;
+}
