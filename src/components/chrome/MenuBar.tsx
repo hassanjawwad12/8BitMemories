@@ -48,7 +48,7 @@ export function MenuBar({ onOpenGuestBook, onOpenAbout }: MenuBarProps) {
           onClick={onHeart}
           aria-label="A little pixel heart"
         />
-        <span className="brand-name holo-text">8BitMemories</span>
+        <span className="brand-name">8BitMemories</span>
         <span className="brand-tag">the games we grew up on</span>
       </div>
 

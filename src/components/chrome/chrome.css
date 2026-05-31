@@ -62,6 +62,13 @@
   font-weight: 700;
   letter-spacing: 0.04em;
   white-space: nowrap;
+  /* Dark indigo -> blue gradient: keeps the logo characterful but high-contrast
+     on the light OS menu bar (the holo wash was too pale here). */
+  background: linear-gradient(180deg, oklch(34% 0.17 285), oklch(28% 0.14 255));
+  /* stylelint-disable-next-line property-no-vendor-prefix -- Safari text clip */
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .brand-tag {
