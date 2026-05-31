@@ -6,14 +6,15 @@
 
 .desktop {
   position: fixed;
-  inset: 0;
+  top: var(--bar-top, 32px);
+  left: var(--rail-w, 152px);
+  right: 0;
+  bottom: var(--bar-bottom, 34px);
   z-index: var(--z-canvas);
   overflow-y: auto;
   overflow-x: hidden;
-  background:
-    radial-gradient(circle at 18% 10%, oklch(42% 0.04 235), transparent 55%),
-    radial-gradient(circle at 85% 90%, oklch(36% 0.05 280), transparent 55%),
-    oklch(30% 0.03 235);
+  /* The floor carries the active wing's atmosphere; chrome stays neutral. */
+  background: var(--wing-bg, oklch(30% 0.03 235));
 }
 
 /* ===== Lobby ============================================================== */
@@ -28,10 +29,8 @@
 
 .wing {
   position: relative;
-  overflow: hidden;
+  min-height: 100%;
   padding: var(--space-6);
-  background: var(--wing-bg);
-  box-shadow: var(--bevel-out);
 }
 
 /* faint graph-paper grid (studiodunbar nod), tinted per wing */
@@ -76,6 +75,15 @@
   color: var(--wing-accent);
   border: 1.5px solid var(--wing-accent);
   padding: 2px 8px;
+  white-space: nowrap;
+}
+
+.wing-tagline {
+  font-family: var(--font-pixel);
+  font-size: var(--text-sm);
+  letter-spacing: 0.16em;
+  color: var(--wing-ink-dim);
+  margin-left: auto;
   white-space: nowrap;
 }
 
