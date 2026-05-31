@@ -1,0 +1,172 @@
+/* =============================================================================
+   The desktop + lobby + cabinet tiles. The OS desktop chrome is neutral; each
+   wing <section> paints its own loud palette inside (the two-layer rule). Window
+   chrome lives in window.css.
+   ============================================================================= */
+
+.desktop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-canvas);
+  overflow-y: auto;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 18% 10%, oklch(42% 0.04 235), transparent 55%),
+    radial-gradient(circle at 85% 90%, oklch(36% 0.05 280), transparent 55%),
+    oklch(30% 0.03 235);
+}
+
+/* ===== Lobby ============================================================== */
+.lobby {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-6) calc(var(--space-8) * 2);
+}
+
+.wing {
+  position: relative;
+  overflow: hidden;
+  padding: var(--space-6);
+  background: var(--wing-bg);
+  box-shadow: var(--bevel-out);
+}
+
+/* faint graph-paper grid (studiodunbar nod), tinted per wing */
+.wing::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--wing-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--wing-grid) 1px, transparent 1px);
+  background-size: 34px 34px;
+  opacity: 0.7;
+}
+
+.wing-head {
+  position: relative;
+  margin-bottom: var(--space-4);
+}
+
+.wing-head-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.wing-title {
+  margin: 0;
+  font-family: var(--font-pixel);
+  font-size: clamp(1.4rem, 1rem + 2.2vw, 2.6rem);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--wing-ink);
+  text-shadow: 2px 2px 0 rgb(0 0 0 / 0.25);
+}
+
+.wing-era {
+  font-family: var(--font-pixel);
+  font-size: var(--text-sm);
+  letter-spacing: 0.1em;
+  color: var(--wing-accent);
+  border: 1.5px solid var(--wing-accent);
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+
+.wing-blurb {
+  margin: var(--space-2) 0 0;
+  max-width: 64ch;
+  font-size: var(--text-ui);
+  line-height: 1.5;
+  color: var(--wing-ink-dim);
+}
+
+.wing-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+  gap: var(--space-4);
+}
+
+/* ===== Cabinet tile ======================================================= */
+.cabinet {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  text-align: left;
+  border: none;
+  background: var(--chrome-face);
+  box-shadow: var(--bevel-out);
+  transition:
+    transform var(--dur-fast) var(--ease-out-expo),
+    filter var(--dur-fast) var(--ease-out-expo);
+}
+
+.cabinet:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.04);
+}
+
+.cabinet:active {
+  transform: translateY(0);
+  box-shadow: var(--bevel-in);
+}
+
+.cabinet:focus-visible {
+  outline: 2px solid var(--os-blue);
+  outline-offset: 2px;
+}
+
+.cabinet-screen {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--wing-screen, oklch(12% 0.03 280));
+  box-shadow:
+    var(--bevel-in),
+    0 0 12px var(--wing-glow, transparent) inset;
+}
+
+.cabinet-marquee {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 0 2px;
+  min-width: 0;
+}
+
+.cabinet-title {
+  font-family: var(--font-pixel);
+  font-size: var(--text-ui);
+  line-height: 1.1;
+  color: var(--chrome-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cabinet-sub {
+  font-family: var(--font-pixel);
+  font-size: var(--text-sm);
+  color: var(--chrome-disabled);
+}
+
+/* ===== Floating windows layer ============================================= */
+.windows {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-window);
+  pointer-events: none;
+}
+
+.windows > * {
+  pointer-events: auto;
+}

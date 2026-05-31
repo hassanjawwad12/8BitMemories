@@ -1,22 +1,27 @@
 "use client";
 
+import "./museum.css";
+
+import { LiveRegion } from "@/components/a11y/LiveRegion";
 import { BootScreen } from "@/components/boot/BootScreen";
 import { CRTOverlay } from "@/components/boot/CRTOverlay";
-import { LiveRegion } from "@/components/a11y/LiveRegion";
-import { MicroGallery } from "@/components/micro/MicroGallery";
+import { Lobby } from "@/components/Lobby";
+import { WindowsLayer } from "@/components/WindowsLayer";
 
 /**
- * Shell — boots the haunted OS, lays the CRT atmosphere over everything, and
- * wires the screen-reader live region. Currently shows the Phase-2 micro-anim
- * contact sheet; Phase 3 swaps in the real lobby, wings, and exhibit windows.
+ * The museum shell. Layers, bottom to top: the boot splash → the desktop (the
+ * scrollable lobby of cabinet tiles) → the floating exhibit windows → the CRT
+ * atmosphere → the a11y live region. The OS chrome (menu bar, taskbar, guest
+ * book, visit counter) and wing transitions are layered in during Phase 4.
  */
 export function Museum() {
   return (
     <>
       <BootScreen />
-      <main className="desktop" data-wing="coin-op">
-        <MicroGallery />
+      <main className="desktop">
+        <Lobby />
       </main>
+      <WindowsLayer />
       <CRTOverlay />
       <LiveRegion />
     </>
