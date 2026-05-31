@@ -1,0 +1,19 @@
+/* =============================================================================
+   WING 3 — THE TERMINAL (DOS / PC / Y2K / early net). 2advanced "Kesey Signal":
+   dark cyberpunk blue→purple HUD, monospace, neon-cyan accents, corner brackets.
+   ============================================================================= */
+[data-wing="terminal"] {
+  --wing-bg: linear-gradient(
+    160deg,
+    oklch(28% 0.12 270) 0%,
+    oklch(22% 0.13 285) 55%,
+    oklch(18% 0.14 300) 100%
+  );
+  --wing-accent: oklch(78% 0.16 200); /* neon cyan */
+  --wing-accent-2: oklch(70% 0.2 320); /* magenta data */
+  --wing-ink: oklch(90% 0.06 220);
+  --wing-ink-dim: oklch(70% 0.06 230);
+  --wing-screen: oklch(10% 0.04 260);
+  --wing-glow: oklch(78% 0.16 200 / 0.5);
+  --wing-grid: oklch(78% 0.16 200 / 0.1);
+}

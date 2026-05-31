@@ -1,0 +1,21 @@
+/* =============================================================================
+   WING 1 — THE COIN-OP FLOOR (arcade, '71–'84). band5051 "desert sunset":
+   purple mountains → amber sun → tan sand, with a neon-red marquee accent.
+   Scoped to [data-wing="coin-op"]; only --wing-* tokens change, never the chrome.
+   ============================================================================= */
+[data-wing="coin-op"] {
+  --wing-bg: linear-gradient(
+    180deg,
+    oklch(38% 0.09 300) 0%,
+    oklch(52% 0.14 20) 42%,
+    oklch(72% 0.16 60) 70%,
+    oklch(80% 0.07 80) 100%
+  );
+  --wing-accent: oklch(62% 0.23 25); /* neon marquee red */
+  --wing-accent-2: oklch(82% 0.16 80); /* amber sun */
+  --wing-ink: oklch(96% 0.02 80);
+  --wing-ink-dim: oklch(82% 0.04 70);
+  --wing-screen: oklch(12% 0.03 280); /* CRT bezel interior */
+  --wing-glow: oklch(70% 0.22 30 / 0.55);
+  --wing-grid: oklch(96% 0.02 80 / 0.08);
+}

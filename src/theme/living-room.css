@@ -1,0 +1,19 @@
+/* =============================================================================
+   WING 2 — THE LIVING ROOM (8/16-bit consoles, '83–'95). Bright primary-color
+   console accents on a warm "CRT-on-carpet" neutral; clean line-art frames.
+   ============================================================================= */
+[data-wing="living-room"] {
+  --wing-bg: radial-gradient(
+      circle at 50% 0%,
+      oklch(95% 0.03 90),
+      oklch(88% 0.03 70) 70%
+    ),
+    oklch(88% 0.03 70);
+  --wing-accent: oklch(55% 0.2 25); /* console red */
+  --wing-accent-2: oklch(58% 0.16 250); /* console blue */
+  --wing-ink: oklch(22% 0.02 260);
+  --wing-ink-dim: oklch(42% 0.02 260);
+  --wing-screen: oklch(16% 0.02 250);
+  --wing-glow: oklch(60% 0.18 250 / 0.4);
+  --wing-grid: oklch(22% 0.02 260 / 0.06);
+}

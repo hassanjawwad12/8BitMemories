@@ -1,0 +1,59 @@
+/* =============================================================================
+   Global stylesheet — the only file that wires the design system together.
+   Order matters: tokens first (everything depends on the custom props), then
+   atmosphere, the a11y utility, the per-wing theme overrides, and finally the
+   shared micro-animation keyframes. No CSS reset library — a tiny inline reset.
+   ============================================================================= */
+
+@import "../styles/tokens.css";
+@import "../styles/atmosphere.css";
+@import "../styles/sr-only.css";
+@import "../theme/coin-op.css";
+@import "../theme/living-room.css";
+@import "../theme/terminal.css";
+@import "../components/micro/micro.css";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-ui);
+  color: var(--chrome-text);
+  background: oklch(28% 0.02 250);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow: hidden; /* the desktop is a fixed viewport surface */
+}
+
+::selection {
+  background: var(--selection);
+  color: var(--title-text);
+}
+
+:focus-visible {
+  outline: 2px solid var(--os-blue);
+  outline-offset: 2px;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* Respect reduced motion globally for view-transition swaps. */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

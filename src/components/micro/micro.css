@@ -1,0 +1,5 @@
+/* =============================================================================
+   Shared micro-animation styles. Filled in Phase 2 (the signature engine).
+   Hard rule: only transform / opacity / clip-path; every animation freezes to a
+   static "hero pose" under prefers-reduced-motion.
+   ============================================================================= */
