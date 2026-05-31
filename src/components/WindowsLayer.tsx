@@ -1,5 +1,7 @@
 "use client";
 
+import { useShallow } from "zustand/shallow";
+
 import { ExhibitWindow } from "@/components/ExhibitWindow";
 import { selectOpenSlugs, useMuseumStore } from "@/store/useMuseumStore";
 
@@ -10,7 +12,9 @@ import { selectOpenSlugs, useMuseumStore } from "@/store/useMuseumStore";
  * is driven by each window's stored z, not DOM order.
  */
 export function WindowsLayer() {
-  const openSlugs = useMuseumStore(selectOpenSlugs);
+  // useShallow: selectOpenSlugs derives a new array each call, so we compare it
+  // shallowly to keep the snapshot referentially stable (avoids an infinite loop).
+  const openSlugs = useMuseumStore(useShallow(selectOpenSlugs));
   return (
     <div className="windows">
       {openSlugs.map((slug) => (

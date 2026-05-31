@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 
+import { useShallow } from "zustand/shallow";
+
 import { EXHIBIT_BY_SLUG } from "@/data/exhibits";
 import { playUiSound } from "@/lib/audio/play";
 import { useAnnouncer } from "@/store/useAnnouncer";
@@ -35,7 +37,7 @@ function Clock() {
  * sighted and screen-reader users see the same running commentary.
  */
 export function Taskbar() {
-  const openSlugs = useMuseumStore(selectOpenSlugs);
+  const openSlugs = useMuseumStore(useShallow(selectOpenSlugs));
   const focused = useMuseumStore((s) => s.focused);
   const focusExhibit = useMuseumStore((s) => s.focusExhibit);
   const status = useAnnouncer((s) => s.message);
