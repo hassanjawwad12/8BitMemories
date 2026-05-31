@@ -93,6 +93,9 @@ export function ExhibitWindow({ slug }: { slug: string }) {
         <button
           type="button"
           className="win-close"
+          // Stop the drag handler (and its pointer capture) from swallowing the
+          // click — otherwise the title bar captures the pointer and × never fires.
+          onPointerDown={(e) => e.stopPropagation()}
           onClick={handleClose}
           aria-label={`Close ${exhibit.title}`}
         >

@@ -10,7 +10,6 @@ import { AttractMode } from "@/components/AttractMode";
 import { BootScreen } from "@/components/boot/BootScreen";
 import { CRTOverlay } from "@/components/boot/CRTOverlay";
 import { About } from "@/components/chrome/About";
-import { GuestBook } from "@/components/chrome/GuestBook";
 import { MenuBar } from "@/components/chrome/MenuBar";
 import { Taskbar } from "@/components/chrome/Taskbar";
 import { WingsRail } from "@/components/chrome/WingsRail";
@@ -39,7 +38,6 @@ export function Museum() {
   const lastSecret = useMuseumStore((s) => s.lastSecret);
   const clearLastSecret = useMuseumStore((s) => s.clearLastSecret);
 
-  const [showGuestBook, setShowGuestBook] = useState(false);
   const [showAbout, setShowAbout] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   const [glitch, setGlitch] = useState(false);
@@ -74,10 +72,7 @@ export function Museum() {
     <>
       <BootScreen />
 
-      <MenuBar
-        onOpenGuestBook={() => setShowGuestBook(true)}
-        onOpenAbout={() => setShowAbout(true)}
-      />
+      <MenuBar onOpenAbout={() => setShowAbout(true)} />
       <WingsRail />
 
       <main className="desktop" data-wing={activeWing}>
@@ -87,7 +82,6 @@ export function Museum() {
       <WindowsLayer />
       <Taskbar />
 
-      {showGuestBook && <GuestBook onClose={() => setShowGuestBook(false)} />}
       {showAbout && <About onClose={() => setShowAbout(false)} />}
 
       {toast && (

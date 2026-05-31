@@ -308,7 +308,7 @@
   box-shadow: var(--bevel-thin-in);
 }
 
-/* ===== Modals (Guest Book / About) ======================================= */
+/* ===== Modal (About) ===================================================== */
 .modal-scrim {
   position: fixed;
   inset: 0;
@@ -344,63 +344,6 @@
 
 .modal-body p {
   margin: 0 0 var(--space-3);
-}
-
-/* Guest Book */
-.guestbook-intro {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-style: italic;
-  color: var(--chrome-disabled);
-}
-
-.guestbook-heart {
-  width: 14px;
-  height: 14px;
-  flex: 0 0 auto;
-  background: oklch(62% 0.23 18);
-  clip-path: path(
-    "M7 12 C 1.5 8, 0 4.5, 2.3 2.3 C 4 0.8, 6 1.6, 7 3 C 8 1.6, 10 0.8, 11.7 2.3 C 14 4.5, 12.5 8, 7 12 Z"
-  );
-}
-
-.guestbook-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-}
-
-.guestbook-entry {
-  padding: var(--space-2) var(--space-3);
-  background: oklch(94% 0.004 250);
-  box-shadow: var(--bevel-thin-in);
-}
-
-.guestbook-meta {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-2);
-}
-
-.guestbook-name {
-  font-family: var(--font-pixel);
-  font-size: var(--text-sm);
-  color: var(--os-blue);
-}
-
-.guestbook-date {
-  font-size: 0.7rem;
-  color: var(--chrome-disabled);
-}
-
-.guestbook-msg {
-  margin: 2px 0 0;
-  font-size: var(--text-sm);
 }
 
 /* About */

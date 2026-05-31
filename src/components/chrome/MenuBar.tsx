@@ -8,16 +8,15 @@ import { useMuseumStore } from "@/store/useMuseumStore";
 
 /**
  * The top menu bar — the constant OS chrome. Holds the brand + a clickable pixel
- * heart (a secret), the VISITS odometer, the SECRETS tally, the Guest Book /
- * About launchers, and the attract + sound toggles. Stays neutral OS-blue
- * regardless of the active wing (the two-layer rule).
+ * heart (a secret), the VISITS odometer, the SECRETS tally, the About launcher,
+ * and the attract + sound toggles. Stays neutral OS-blue regardless of the active
+ * wing (the two-layer rule).
  */
 interface MenuBarProps {
-  onOpenGuestBook: () => void;
   onOpenAbout: () => void;
 }
 
-export function MenuBar({ onOpenGuestBook, onOpenAbout }: MenuBarProps) {
+export function MenuBar({ onOpenAbout }: MenuBarProps) {
   const soundOn = useMuseumStore((s) => s.soundOn);
   const attractOn = useMuseumStore((s) => s.attractOn);
   const toggleSound = useMuseumStore((s) => s.toggleSound);
@@ -57,9 +56,6 @@ export function MenuBar({ onOpenGuestBook, onOpenAbout }: MenuBarProps) {
         <span className="meta-chip" title="Secrets found">
           SECRETS {secretsCount}/{SECRET_COUNT}
         </span>
-        <button type="button" className="meta-btn" onClick={onOpenGuestBook}>
-          Guest&nbsp;Book
-        </button>
         <button type="button" className="meta-btn" onClick={onOpenAbout}>
           About
         </button>

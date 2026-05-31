@@ -12,7 +12,7 @@ import { WINGS } from "@/data/wings";
 export function About({ onClose }: { onClose: () => void }) {
   return (
     <ModalWindow title="About — 8BitMemories" onClose={onClose} className="modal-about">
-      <h3 className="about-logo holo-text">8BitMemories</h3>
+      <h3 className="about-logo brand-name">8BitMemories</h3>
       <p className="about-tag">the games we grew up on</p>
 
       <p>
