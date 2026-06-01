@@ -98,7 +98,7 @@
 .wing-grid {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(172px, 1fr));
   gap: var(--space-4);
 }
 
@@ -182,4 +182,126 @@
 
 .windows > * {
   pointer-events: auto;
+}
+
+/* ===== Wing floor footer (fills the space below the grid) ================= */
+.wing-floor {
+  position: relative;
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  border-top: 1px dashed color-mix(in oklch, var(--wing-ink) 28%, transparent);
+}
+
+/* Scrolling marquee of the wing's titles. */
+.floor-ticker {
+  overflow: hidden;
+  width: 100%;
+  -webkit-mask: linear-gradient(
+    90deg,
+    transparent,
+    #000 6%,
+    #000 94%,
+    transparent
+  );
+  mask: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+.floor-ticker-track {
+  display: inline-flex;
+  white-space: nowrap;
+  font-family: var(--font-pixel);
+  font-size: clamp(1rem, 0.8rem + 1vw, 1.6rem);
+  letter-spacing: 0.04em;
+  color: var(--wing-ink);
+  will-change: transform;
+  animation: floor-ticker 26s linear infinite;
+}
+
+.floor-ticker-item {
+  display: inline-flex;
+  align-items: center;
+}
+
+.floor-sep {
+  margin: 0 var(--space-4);
+  font-style: normal;
+  color: var(--wing-accent);
+  opacity: 0.8;
+}
+
+@keyframes floor-ticker {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Blinking tagline + cursor. Uses --wing-ink (designed to read on the wing bg);
+   the accent is reserved for the cursor so it never washes out on warm floors. */
+.floor-blink {
+  margin: 0;
+  font-family: var(--font-pixel);
+  font-size: var(--text-ui);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--wing-ink);
+  text-shadow: 0 1px 2px rgb(0 0 0 / 0.35);
+}
+
+.floor-cursor {
+  margin-left: 0.3em;
+  color: var(--wing-accent);
+  animation: floor-cursor 1.1s steps(2) infinite;
+}
+
+@keyframes floor-cursor {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Era fun fact — a small dark placard so the accent + text stay legible on any
+   wing background (including the bright Coin-Op sunset). */
+.floor-fact {
+  max-width: 68ch;
+  margin-top: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: color-mix(in oklch, var(--wing-screen) 82%, transparent);
+  border-left: 3px solid var(--wing-accent);
+  box-shadow: var(--bevel-thin-out);
+}
+
+.floor-fact-head {
+  margin: 0 0 var(--space-1);
+  font-family: var(--font-pixel);
+  font-size: var(--text-ui);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--wing-accent);
+}
+
+.floor-fact-body {
+  margin: 0;
+  font-size: var(--text-ui);
+  line-height: 1.55;
+  color: var(--wing-ink);
+}
+
+/* Living Room's --wing-ink is dark (tuned for its light floor), so on the dark
+   fact placard it disappears — force a light ink here only. */
+[data-wing="living-room"] .floor-fact-body {
+  color: oklch(94% 0.02 250);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floor-ticker-track {
+    animation: none;
+    transform: translateX(0);
+  }
+  .floor-cursor {
+    animation: none;
+    opacity: 1;
+  }
 }

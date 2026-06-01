@@ -1,6 +1,7 @@
 "use client";
 
 import { CabinetTile } from "@/components/CabinetTile";
+import { WingFloor } from "@/components/WingFloor";
 import { exhibitsByWing } from "@/data/exhibits";
 import { WING_BY_ID } from "@/data/wings";
 import { useMuseumStore } from "@/store/useMuseumStore";
@@ -34,6 +35,7 @@ export function Lobby() {
           <CabinetTile key={exhibit.slug} exhibit={exhibit} />
         ))}
       </div>
+      <WingFloor />
     </section>
   );
 }
