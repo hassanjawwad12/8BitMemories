@@ -28,6 +28,9 @@ export const MICRO_ANIM_IDS = [
   "doom-face",
   "minesweeper",
   "frogger",
+  "zelda",
+  "mega-man",
+  "street-fighter",
   "_attract",
 ] as const;
 export const microAnimIdSchema = z.enum(MICRO_ANIM_IDS);

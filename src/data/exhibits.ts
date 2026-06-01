@@ -212,7 +212,7 @@ const RAW_EXHIBITS: readonly GameExhibit[] = [
     platform: "NES",
     genre: "Action-adventure",
     wing: "living-room",
-    micro: "_attract",
+    micro: "zelda",
     rating: 5,
     blurb:
       "A gold cartridge that let you wander. No level select, no hand-holding — just a sword in a cave and the words 'IT'S DANGEROUS TO GO ALONE.'",
@@ -236,7 +236,7 @@ const RAW_EXHIBITS: readonly GameExhibit[] = [
     platform: "NES",
     genre: "Platformer",
     wing: "living-room",
-    micro: "_attract",
+    micro: "mega-man",
     rating: 5,
     blurb:
       "Pick a robot master, beat it, steal its weapon, repeat — a non-linear difficulty puzzle wrapped in some of the best chiptune ever pressed to a cart.",
@@ -308,7 +308,7 @@ const RAW_EXHIBITS: readonly GameExhibit[] = [
     platform: "Arcade / SNES",
     genre: "Fighting",
     wing: "living-room",
-    micro: "_attract",
+    micro: "street-fighter",
     rating: 5,
     blurb:
       "Eight world warriors, six buttons, and the special-move motions ↓↘→ that a generation memorized with their thumbs.",

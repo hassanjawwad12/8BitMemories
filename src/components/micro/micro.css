@@ -1109,6 +1109,246 @@
   }
 }
 
+/* ===== THE LEGEND OF ZELDA ================================================ */
+.micro--zelda {
+  background: oklch(20% 0.04 285);
+}
+
+.zl-force {
+  left: 50%;
+  top: 50%;
+  width: 46cqmin;
+  height: 40cqmin;
+  transform: translate(-50%, -50%);
+  animation: zl-float 3s var(--ease-in-out) infinite;
+}
+
+.zl-tri {
+  position: absolute;
+  width: 23cqmin;
+  height: 20cqmin;
+  background: oklch(84% 0.16 92);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  opacity: 0.45;
+  animation: zl-glow 2.4s ease-in-out infinite;
+}
+
+.zl-tri--top {
+  left: calc(50% - 11.5cqmin);
+  top: 0;
+  animation-delay: 0s;
+}
+.zl-tri--left {
+  left: 0;
+  top: 20cqmin;
+  animation-delay: 0.25s;
+}
+.zl-tri--right {
+  right: 0;
+  top: 20cqmin;
+  animation-delay: 0.5s;
+}
+
+.zl-spark {
+  left: 50%;
+  top: 6%;
+  width: 5cqmin;
+  height: 5cqmin;
+  background: oklch(98% 0.02 95);
+  clip-path: polygon(
+    50% 0,
+    60% 40%,
+    100% 50%,
+    60% 60%,
+    50% 100%,
+    40% 60%,
+    0 50%,
+    40% 40%
+  );
+  opacity: 0;
+  animation: zl-spark 2.4s ease-out infinite;
+}
+
+@keyframes zl-float {
+  0%,
+  100% {
+    transform: translate(-50%, -50%);
+  }
+  50% {
+    transform: translate(-50%, calc(-50% - 2.5cqmin));
+  }
+}
+
+@keyframes zl-glow {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  18% {
+    opacity: 1;
+  }
+  45% {
+    opacity: 0.4;
+  }
+}
+
+@keyframes zl-spark {
+  0%,
+  70% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0);
+  }
+  80% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0);
+  }
+}
+
+/* ===== MEGA MAN 2 ========================================================= */
+.micro--mega-man {
+  background: oklch(60% 0.13 240);
+}
+
+.mm-hero {
+  left: 12%;
+  top: calc(50% - 10cqmin);
+  width: 20cqmin;
+  height: 20cqmin;
+  background: oklch(50% 0.16 255);
+  border-radius: 42% 42% 36% 36%;
+  box-shadow: inset 0 0 0 2.4cqmin oklch(38% 0.15 262);
+  animation: mm-recoil 1.5s ease-out infinite;
+}
+
+.mm-hero::after {
+  content: "";
+  position: absolute;
+  left: 22%;
+  top: 26%;
+  width: 56%;
+  height: 13%;
+  background: oklch(88% 0.12 200);
+  border-radius: 1cqmin;
+}
+
+.mm-shot {
+  left: 30%;
+  top: calc(50% - 3cqmin);
+  width: 6cqmin;
+  height: 6cqmin;
+  border-radius: 50%;
+  background: oklch(92% 0.15 100);
+  box-shadow: 0 0 4cqmin oklch(92% 0.15 100);
+  opacity: 0;
+  will-change: transform;
+  animation: mm-shot 1.5s linear infinite;
+}
+
+.mm-shot:nth-child(3) {
+  animation-delay: 0.5s;
+}
+.mm-shot:nth-child(4) {
+  animation-delay: 1s;
+}
+
+@keyframes mm-recoil {
+  0%,
+  8%,
+  100% {
+    transform: translateX(0);
+  }
+  4% {
+    transform: translateX(-2cqmin);
+  }
+}
+
+@keyframes mm-shot {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  85% {
+    transform: translateX(58cqmin);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(62cqmin);
+    opacity: 0;
+  }
+}
+
+/* ===== STREET FIGHTER II ================================================== */
+.micro--street-fighter {
+  background: linear-gradient(180deg, oklch(56% 0.12 52), oklch(42% 0.1 32));
+}
+
+.sf-fighter {
+  left: 14%;
+  top: calc(50% - 11cqmin);
+  width: 18cqmin;
+  height: 22cqmin;
+  background: oklch(74% 0.15 62);
+  border-radius: 40% 40% 18% 18%;
+  box-shadow: inset 0 0 0 2cqmin oklch(56% 0.14 48);
+  animation: sf-lunge 2s ease-out infinite;
+}
+
+.sf-ball {
+  left: 30%;
+  top: calc(50% - 8cqmin);
+  width: 16cqmin;
+  height: 16cqmin;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    oklch(98% 0.02 220) 18%,
+    oklch(72% 0.18 232) 55%,
+    transparent 72%
+  );
+  opacity: 0;
+  will-change: transform;
+  animation: sf-ball 2s ease-out infinite;
+}
+
+@keyframes sf-lunge {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  18% {
+    transform: translateX(4cqmin);
+  }
+  40% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes sf-ball {
+  0% {
+    transform: translateX(0) scale(0.2);
+    opacity: 0;
+  }
+  15% {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+  90% {
+    transform: translateX(54cqmin) scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(58cqmin) scale(1.1);
+    opacity: 0;
+  }
+}
+
 /* ===== ATTRACT (fallback) ================================================== */
 .micro--attract {
   background: oklch(8% 0.02 270);
@@ -1258,5 +1498,28 @@
   .at-text,
   .at-star {
     opacity: 0.85;
+  }
+
+  /* Zelda — the full Triforce, assembled and lit. */
+  .zl-force {
+    transform: translate(-50%, -50%);
+  }
+  .zl-tri {
+    opacity: 1;
+  }
+
+  /* Mega Man — a pellet frozen mid-flight. */
+  .mm-shot {
+    opacity: 0;
+  }
+  .mm-shot:nth-child(3) {
+    opacity: 1;
+    transform: translateX(30cqmin);
+  }
+
+  /* Street Fighter — the Hadouken caught mid-screen. */
+  .sf-ball {
+    opacity: 1;
+    transform: translateX(28cqmin) scale(1);
   }
 }

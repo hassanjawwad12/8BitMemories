@@ -6,8 +6,12 @@
 
 :root {
   --bar-top: 32px;
-  --rail-w: 152px;
-  --bar-bottom: 34px;
+  --rail-w: 300px;
+  --bar-bottom: 42px;
+  /* Taskbar text runs 2px larger than the rest of the small chrome text;
+     the wings rail runs 4px larger (and bold) for prominence. */
+  --text-task: calc(var(--text-sm) + 2px);
+  --text-rail: calc(var(--text-sm) + 4px);
   --chrome-bar: linear-gradient(180deg, oklch(86% 0.005 250), oklch(78% 0.008 250));
 }
 
@@ -161,7 +165,8 @@
 .rail-head,
 .rail-foot {
   font-family: var(--font-pixel);
-  font-size: var(--text-sm);
+  font-size: var(--text-rail);
+  font-weight: 900;
   letter-spacing: 0.18em;
   color: var(--chrome-disabled);
   text-align: center;
@@ -222,12 +227,13 @@
 
 .rail-label {
   font-family: var(--font-pixel);
-  font-size: var(--text-sm);
+  font-size: var(--text-rail);
+  
   line-height: 1.15;
 }
 
 .rail-era {
-  font-size: 0.62rem;
+  font-size: calc(0.62rem + 2px);
   color: var(--chrome-disabled);
 }
 
@@ -244,16 +250,17 @@
   background: var(--chrome-bar);
   box-shadow: var(--bevel-out);
   font-family: var(--font-ui);
+  font-size: var(--text-task);
 }
 
 .taskbar-start {
   flex: 0 0 auto;
   font-family: var(--font-pixel);
   font-weight: 700;
-  font-size: var(--text-sm);
+  font-size: var(--text-task);
   color: var(--title-text);
   background: var(--title-grad);
-  padding: 3px 10px;
+  padding: 4px 12px;
   box-shadow: var(--bevel-out);
   letter-spacing: 0.06em;
 }
@@ -269,13 +276,13 @@
 }
 
 .task-win {
-  max-width: 140px;
+  max-width: 160px;
   font-family: var(--font-ui);
-  font-size: var(--text-sm);
+  font-size: var(--text-task);
   color: var(--chrome-text);
   background: var(--chrome-face);
   border: none;
-  padding: 3px 8px;
+  padding: 4px 10px;
   box-shadow: var(--bevel-out);
   white-space: nowrap;
   overflow: hidden;
@@ -290,9 +297,9 @@
 .task-status {
   flex: 1 1 auto;
   min-width: 0;
-  font-size: var(--text-sm);
+  font-size: var(--text-task);
   color: var(--chrome-text);
-  padding: 2px var(--space-2);
+  padding: 4px var(--space-2);
   box-shadow: var(--bevel-thin-in);
   white-space: nowrap;
   overflow: hidden;
@@ -302,9 +309,9 @@
 .task-clock {
   flex: 0 0 auto;
   font-family: var(--font-pixel);
-  font-size: var(--text-sm);
+  font-size: var(--text-task);
   color: var(--chrome-text);
-  padding: 2px var(--space-2);
+  padding: 4px var(--space-2);
   box-shadow: var(--bevel-thin-in);
 }
 

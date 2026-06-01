@@ -8,12 +8,15 @@ import { DoomFace } from "./DoomFace";
 import { Frogger } from "./Frogger";
 import { Invaders } from "./Invaders";
 import { MarioCoin } from "./MarioCoin";
+import { MegaMan } from "./MegaMan";
 import { Minesweeper } from "./Minesweeper";
 import { Pacman } from "./Pacman";
 import { Pong } from "./Pong";
 import { Snake } from "./Snake";
 import { SonicRing } from "./SonicRing";
+import { StreetFighter } from "./StreetFighter";
 import { Tetris } from "./Tetris";
+import { Zelda } from "./Zelda";
 
 /**
  * The micro-animation registry — maps a `MicroAnimId` from the manifest to its
@@ -34,6 +37,9 @@ export const MICRO_REGISTRY: Readonly<Record<MicroAnimId, ComponentType>> = {
   "doom-face": DoomFace,
   minesweeper: Minesweeper,
   frogger: Frogger,
+  zelda: Zelda,
+  "mega-man": MegaMan,
+  "street-fighter": StreetFighter,
   _attract: Attract,
 };
 

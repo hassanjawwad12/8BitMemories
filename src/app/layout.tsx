@@ -30,7 +30,10 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      {/* suppressHydrationWarning: browser extensions (e.g. ColorZilla's
+          cz-shortcut-listen) inject attributes onto <body> before React
+          hydrates; this scopes the warning suppression to those body attrs. */}
+      <body suppressHydrationWarning>{children}</body>
     </html>
   );
 }

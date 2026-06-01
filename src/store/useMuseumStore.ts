@@ -61,8 +61,9 @@ interface MuseumState {
 
 const CASCADE_STEP = 30;
 const CASCADE_WRAP = 6;
-// Open inside the floor area: clear of the left rail and the top menu bar.
-const CASCADE_ORIGIN: WinPos = { x: 174, y: 48 };
+// Floor-relative: the windows layer is already inset past the rail + bars
+// (see .windows in museum.css), so this is just a small offset into the floor.
+const CASCADE_ORIGIN: WinPos = { x: 28, y: 24 };
 
 /** Append `id` to a readonly list iff not already present (immutable). */
 function addOnce<T>(list: readonly T[], id: T): readonly T[] {

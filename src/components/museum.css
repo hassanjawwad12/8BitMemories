@@ -168,9 +168,14 @@
 }
 
 /* ===== Floating windows layer ============================================= */
+/* Anchored to the floor (clear of the rail + bars), so windows open inside the
+   floor area instead of behind the wings rail. Window --x/--y are floor-relative. */
 .windows {
   position: fixed;
-  inset: 0;
+  top: var(--bar-top, 32px);
+  left: var(--rail-w, 152px);
+  right: 0;
+  bottom: var(--bar-bottom, 42px);
   z-index: var(--z-window);
   pointer-events: none;
 }
