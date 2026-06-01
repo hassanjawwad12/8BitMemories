@@ -1,7 +1,7 @@
 /* =============================================================================
    OS CHROME — the constant, neutral layer: menu bar, wings rail, taskbar, modals,
-   plus the wing channel-wipe (View Transition) and Konami glitch. The chrome
-   never takes on a wing's loud palette (the two-layer rule); only the floor does.
+   plus the wing channel-wipe (View Transition). The chrome never takes on a
+   wing's loud palette (the two-layer rule); only the floor does.
    ============================================================================= */
 
 :root {
@@ -107,16 +107,6 @@
   background: oklch(16% 0.03 260);
   box-shadow: var(--bevel-thin-in);
   letter-spacing: 0.12em;
-}
-
-.meta-chip {
-  font-family: var(--font-pixel);
-  font-size: var(--text-sm);
-  letter-spacing: 0.06em;
-  color: var(--os-blue);
-  padding: 1px 6px;
-  box-shadow: var(--bevel-thin-in);
-  white-space: nowrap;
 }
 
 .meta-btn {
@@ -402,88 +392,6 @@
 .about-note {
   font-size: var(--text-sm);
   color: var(--chrome-disabled);
-}
-
-.about-hint {
-  font-size: var(--text-sm);
-  color: var(--os-blue);
-}
-
-/* ===== Secret toast ====================================================== */
-.secret-toast {
-  position: fixed;
-  left: 50%;
-  bottom: calc(var(--bar-bottom) + 18px);
-  z-index: calc(var(--z-dialog) + 10);
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-2) var(--space-4);
-  background: var(--chrome-face);
-  box-shadow:
-    var(--bevel-out),
-    0 0 22px oklch(86% 0.18 95 / 0.5);
-  font-family: var(--font-pixel);
-  font-size: var(--text-ui);
-  color: var(--chrome-text);
-  animation: secret-pop var(--dur-norm) var(--ease-out-expo);
-}
-
-.secret-toast-star {
-  color: oklch(82% 0.18 95);
-}
-
-@keyframes secret-pop {
-  from {
-    transform: translate(-50%, 12px);
-    opacity: 0;
-  }
-  to {
-    transform: translate(-50%, 0);
-    opacity: 1;
-  }
-}
-
-.secret-toast {
-  transform: translateX(-50%);
-}
-
-/* ===== Konami glitch overlay ============================================= */
-.crt-glitch {
-  position: fixed;
-  inset: 0;
-  z-index: calc(var(--z-crt) + 1);
-  pointer-events: none;
-  mix-blend-mode: screen;
-  background: repeating-linear-gradient(
-    0deg,
-    oklch(70% 0.2 200 / 0.5) 0 2px,
-    transparent 2px 5px,
-    oklch(70% 0.25 350 / 0.4) 5px 7px,
-    transparent 7px 10px
-  );
-  animation: crt-glitch 1.5s steps(8) forwards;
-}
-
-@keyframes crt-glitch {
-  0% {
-    transform: translateX(-3%);
-    opacity: 0.9;
-  }
-  20% {
-    transform: translateX(3%);
-  }
-  40% {
-    transform: translateX(-2%);
-  }
-  60% {
-    transform: translateX(2%);
-    opacity: 0.7;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 0;
-  }
 }
 
 /* ===== Wing switch — channel-change static + vertical roll =============== */

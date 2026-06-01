@@ -1,19 +1,18 @@
 import { create } from "zustand";
 
-import { type WingId, WING_IDS } from "@/data/schema";
+import type { WingId } from "@/data/schema";
 import { DEFAULT_WING } from "@/data/wings";
 import { prefs } from "@/lib/prefs";
-import { type SecretId } from "@/lib/secrets";
 
 /**
  * The museum's client state (Zustand). View-only: we track open exhibit windows,
- * the active wing, sound/attract preferences, and which secrets have been found —
- * but never any user-authored content. Window positions are intentionally NOT
- * persisted (the desktop is fresh each visit); only `soundOn` and `attractOn` are
- * durable (localStorage, via lib/prefs).
+ * the active wing, and the sound/attract preferences — never any user-authored
+ * content. Window positions are intentionally NOT persisted (the desktop is fresh
+ * each visit); only `soundOn` and `attractOn` are durable (localStorage, via
+ * lib/prefs).
  *
  * Updates are immutable — every action returns new objects, never mutating the
- * existing maps/arrays (see the coding-style rules).
+ * existing maps (see the coding-style rules).
  */
 
 export interface WinPos {
@@ -26,23 +25,14 @@ export interface OpenWindow extends WinPos {
   readonly z: number;
 }
 
-const COLLECTOR_THRESHOLD = 5;
-
 interface MuseumState {
   readonly windows: Readonly<Record<string, OpenWindow>>;
   readonly focused: string | null;
   readonly topZ: number;
 
   readonly activeWing: WingId;
-  readonly wingsVisited: readonly WingId[];
-  readonly everOpened: readonly string[];
-
   readonly soundOn: boolean;
   readonly attractOn: boolean;
-
-  readonly secretsFound: readonly SecretId[];
-  /** Transient: the most recently granted secret, for the reveal effect. */
-  readonly lastSecret: SecretId | null;
 
   readonly openExhibit: (slug: string) => void;
   readonly closeExhibit: (slug: string) => void;
@@ -53,8 +43,6 @@ interface MuseumState {
   readonly setWing: (wing: WingId) => void;
   readonly toggleSound: () => void;
   readonly toggleAttract: () => void;
-  readonly grantSecret: (id: SecretId) => void;
-  readonly clearLastSecret: () => void;
   /** Hydrate durable prefs from localStorage after mount (avoids SSR mismatch). */
   readonly hydratePrefs: () => void;
 }
@@ -65,52 +53,25 @@ const CASCADE_WRAP = 6;
 // (see .windows in museum.css), so this is just a small offset into the floor.
 const CASCADE_ORIGIN: WinPos = { x: 28, y: 24 };
 
-/** Append `id` to a readonly list iff not already present (immutable). */
-function addOnce<T>(list: readonly T[], id: T): readonly T[] {
-  return list.includes(id) ? list : [...list, id];
-}
-
 export const useMuseumStore = create<MuseumState>((set, get) => ({
   windows: {},
   focused: null,
   topZ: 0,
 
   activeWing: DEFAULT_WING,
-  wingsVisited: [DEFAULT_WING],
-  everOpened: [],
-
   soundOn: true,
-  attractOn: true,
-
-  secretsFound: [],
-  lastSecret: null,
+  attractOn: false,
 
   openExhibit: (slug) =>
     set((state) => {
       const z = state.topZ + 1;
       const existing = state.windows[slug];
 
-      // Track lifetime opens for the "collector"/"toaster" secrets.
-      const everOpened = addOnce(state.everOpened, slug);
-      let secretsFound = state.secretsFound;
-      let lastSecret = state.lastSecret;
-      if (everOpened.length >= COLLECTOR_THRESHOLD && !secretsFound.includes("collector")) {
-        secretsFound = [...secretsFound, "collector"];
-        lastSecret = "collector";
-      }
-      if (slug === "flying-toasters" && !secretsFound.includes("toaster")) {
-        secretsFound = [...secretsFound, "toaster"];
-        lastSecret = "toaster";
-      }
-
       // Already open → raise + focus (keep its position).
       if (existing) {
         return {
           focused: slug,
           topZ: z,
-          everOpened,
-          secretsFound,
-          lastSecret,
           windows: { ...state.windows, [slug]: { ...existing, z } },
         };
       }
@@ -125,9 +86,6 @@ export const useMuseumStore = create<MuseumState>((set, get) => ({
       return {
         focused: slug,
         topZ: z,
-        everOpened,
-        secretsFound,
-        lastSecret,
         windows: { ...state.windows, [slug]: opened },
       };
     }),
@@ -175,20 +133,7 @@ export const useMuseumStore = create<MuseumState>((set, get) => ({
   },
 
   setWing: (wing) =>
-    set((state) => {
-      if (state.activeWing === wing) return state;
-      const wingsVisited = addOnce(state.wingsVisited, wing);
-      const visitedAll = WING_IDS.every((id) => wingsVisited.includes(id));
-      const earnedExplorer = visitedAll && !state.secretsFound.includes("explorer");
-      return {
-        activeWing: wing,
-        wingsVisited,
-        secretsFound: earnedExplorer
-          ? [...state.secretsFound, "explorer"]
-          : state.secretsFound,
-        lastSecret: earnedExplorer ? "explorer" : state.lastSecret,
-      };
-    }),
+    set((state) => (state.activeWing === wing ? state : { activeWing: wing })),
 
   toggleSound: () =>
     set((state) => {
@@ -203,15 +148,6 @@ export const useMuseumStore = create<MuseumState>((set, get) => ({
       prefs.setAttract(attractOn);
       return { attractOn };
     }),
-
-  grantSecret: (id) =>
-    set((state) =>
-      state.secretsFound.includes(id)
-        ? state
-        : { secretsFound: [...state.secretsFound, id], lastSecret: id },
-    ),
-
-  clearLastSecret: () => set({ lastSecret: null }),
 
   hydratePrefs: () => set({ soundOn: prefs.getSound(), attractOn: prefs.getAttract() }),
 }));

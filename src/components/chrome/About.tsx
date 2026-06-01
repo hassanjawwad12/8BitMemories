@@ -42,11 +42,6 @@ export function About({ onClose }: { onClose: () => void }) {
         respective owners. This is a non-commercial, educational fan showcase; loops
         are short and editorial, and credit is given where known.
       </p>
-
-      <p className="about-hint">
-        Psst — there are 6 secrets hidden around the museum. Try the old code:
-        ↑↑↓↓←→←→ B A.
-      </p>
     </ModalWindow>
   );
 }

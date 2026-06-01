@@ -31,7 +31,6 @@ export default defineConfig({
         "src/data/schema.ts",
         "src/data/wings.ts",
         "src/store/useMuseumStore.ts",
-        "src/lib/secrets.ts",
         "src/lib/prefs.ts",
         "src/components/micro/registry.ts",
       ],

@@ -10,12 +10,8 @@ function resetStore() {
     focused: null,
     topZ: 0,
     activeWing: DEFAULT_WING,
-    wingsVisited: [DEFAULT_WING],
-    everOpened: [],
     soundOn: true,
-    attractOn: true,
-    secretsFound: [],
-    lastSecret: null,
+    attractOn: false,
   });
 }
 
@@ -93,35 +89,10 @@ describe("wings", () => {
     expect(s().activeWing).toBe("terminal");
   });
 
-  it("visiting all three wings grants the explorer secret", () => {
-    expect(s().secretsFound).not.toContain("explorer");
-    s().setWing("living-room");
-    s().setWing("terminal");
-    expect(s().secretsFound).toContain("explorer");
-    expect(s().lastSecret).toBe("explorer");
-  });
-});
-
-describe("secrets", () => {
-  it("opening five distinct exhibits grants the collector secret", () => {
-    for (const slug of ["pong", "invaders", "pac-man", "asteroids", "galaga"]) {
-      s().openExhibit(slug);
-    }
-    expect(s().secretsFound).toContain("collector");
-  });
-
-  it("opening Flying Toasters grants the toaster secret", () => {
-    s().openExhibit("flying-toasters");
-    expect(s().secretsFound).toContain("toaster");
-  });
-
-  it("grantSecret is idempotent and sets lastSecret", () => {
-    s().grantSecret("konami");
-    s().grantSecret("konami");
-    expect(s().secretsFound.filter((x) => x === "konami")).toHaveLength(1);
-    expect(s().lastSecret).toBe("konami");
-    s().clearLastSecret();
-    expect(s().lastSecret).toBeNull();
+  it("setWing to the current wing is a no-op", () => {
+    const before = s().activeWing;
+    s().setWing(before);
+    expect(s().activeWing).toBe(before);
   });
 });
 
@@ -133,17 +104,18 @@ describe("preferences", () => {
     expect(window.localStorage.getItem("8bm-sound")).toBe("0");
   });
 
-  it("toggleAttract flips and persists", () => {
-    s().toggleAttract();
+  it("toggleAttract flips from its default-off state and persists", () => {
     expect(s().attractOn).toBe(false);
-    expect(window.localStorage.getItem("8bm-attract")).toBe("0");
+    s().toggleAttract();
+    expect(s().attractOn).toBe(true);
+    expect(window.localStorage.getItem("8bm-attract")).toBe("1");
   });
 
   it("hydratePrefs reads persisted prefs from storage", () => {
     window.localStorage.setItem("8bm-sound", "0");
-    window.localStorage.setItem("8bm-attract", "0");
+    window.localStorage.setItem("8bm-attract", "1");
     s().hydratePrefs();
     expect(s().soundOn).toBe(false);
-    expect(s().attractOn).toBe(false);
+    expect(s().attractOn).toBe(true);
   });
 });

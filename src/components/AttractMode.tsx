@@ -19,14 +19,12 @@ const CYCLE_MS = 4_200;
 
 export function AttractMode() {
   const attractOn = useMuseumStore((s) => s.attractOn);
-  const grantSecret = useMuseumStore((s) => s.grantSecret);
   const reduced = useReducedMotion();
   const idle = useIdle(IDLE_MS, attractOn && !reduced);
   const indexRef = useRef(0);
 
   useEffect(() => {
     if (!idle) return;
-    grantSecret("night-owl");
 
     let prevSlug: string | null = null;
     const store = useMuseumStore.getState;
@@ -46,7 +44,7 @@ export function AttractMode() {
       clearInterval(interval);
       if (prevSlug) store().closeExhibit(prevSlug);
     };
-  }, [idle, grantSecret]);
+  }, [idle]);
 
   return null;
 }

@@ -21,8 +21,8 @@ describe("prefs", () => {
     vi.spyOn(Storage.prototype, "getItem").mockImplementation(() => {
       throw new Error("blocked");
     });
-    expect(prefs.getSound()).toBe(true);
-    expect(prefs.getAttract()).toBe(true);
+    expect(prefs.getSound()).toBe(true); // sound defaults on
+    expect(prefs.getAttract()).toBe(false); // attract defaults off
   });
 
   it("swallows write errors", () => {

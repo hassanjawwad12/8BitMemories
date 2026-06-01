@@ -29,6 +29,6 @@ function writeBool(key: string, value: boolean): void {
 export const prefs = {
   getSound: () => readBool(SOUND_KEY, true),
   setSound: (on: boolean) => writeBool(SOUND_KEY, on),
-  getAttract: () => readBool(ATTRACT_KEY, true),
+  getAttract: () => readBool(ATTRACT_KEY, false),
   setAttract: (on: boolean) => writeBool(ATTRACT_KEY, on),
 };
