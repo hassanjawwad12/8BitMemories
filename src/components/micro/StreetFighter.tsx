@@ -1,9 +1,10 @@
-/** Street Fighter — a fighter lunges and launches a Hadouken fireball across. */
+/** Street Fighter II — two pixel fighters trade blows, each landing a hit and recoiling. */
 export function StreetFighter() {
   return (
     <div className="micro micro--street-fighter" aria-hidden="true">
-      <span className="sf-fighter" />
-      <span className="sf-ball" />
+      <span className="sf-fighter sf-fighter--p1" />
+      <span className="sf-fighter sf-fighter--p2" />
+      <span className="sf-hit" />
     </div>
   );
 }

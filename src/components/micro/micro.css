@@ -1285,67 +1285,183 @@
 }
 
 /* ===== STREET FIGHTER II ================================================== */
+/* Two pixel fighters trade blows: P1 lunges and lands a punch, P2 recoils;
+   then P2 answers and P1 recoils. The arm (::after) is the extending fist. */
 .micro--street-fighter {
   background: linear-gradient(180deg, oklch(56% 0.12 52), oklch(42% 0.1 32));
 }
 
 .sf-fighter {
-  left: 14%;
-  top: calc(50% - 11cqmin);
-  width: 18cqmin;
+  top: calc(50% - 4cqmin);
+  width: 16cqmin;
   height: 22cqmin;
-  background: oklch(74% 0.15 62);
-  border-radius: 40% 40% 18% 18%;
-  box-shadow: inset 0 0 0 2cqmin oklch(56% 0.14 48);
-  animation: sf-lunge 2s ease-out infinite;
+  border-radius: 38% 38% 16% 16%;
+  will-change: transform;
 }
 
-.sf-ball {
-  left: 30%;
-  top: calc(50% - 8cqmin);
-  width: 16cqmin;
-  height: 16cqmin;
-  border-radius: 50%;
+/* The punching arm — a stubby fist that shoots out toward the opponent. */
+.sf-fighter::after {
+  content: "";
+  position: absolute;
+  top: 32%;
+  width: 7cqmin;
+  height: 5cqmin;
+  border-radius: 1.5cqmin;
+  will-change: transform;
+}
+
+/* P1 — warm fighter on the left, facing right. */
+.sf-fighter--p1 {
+  left: 16%;
+  background: oklch(74% 0.15 62);
+  box-shadow: inset 0 0 0 2cqmin oklch(56% 0.14 48);
+  transform-origin: left center;
+  animation: sf-p1-body 2.6s ease-in-out infinite;
+}
+
+.sf-fighter--p1::after {
+  right: -5cqmin;
+  background: oklch(80% 0.13 64);
+  animation: sf-p1-arm 2.6s ease-out infinite;
+}
+
+/* P2 — cool fighter on the right, facing left. */
+.sf-fighter--p2 {
+  right: 16%;
+  background: oklch(64% 0.13 244);
+  box-shadow: inset 0 0 0 2cqmin oklch(48% 0.13 256);
+  transform-origin: right center;
+  animation: sf-p2-body 2.6s ease-in-out infinite;
+}
+
+.sf-fighter--p2::after {
+  left: -5cqmin;
+  background: oklch(72% 0.12 246);
+  animation: sf-p2-arm 2.6s ease-out infinite;
+}
+
+/* Impact star — flashes at the point of contact, shifting side per hit. */
+.sf-hit {
+  top: calc(50% - 5cqmin);
+  left: calc(50% - 5cqmin);
+  width: 10cqmin;
+  height: 10cqmin;
   background: radial-gradient(
     circle,
-    oklch(98% 0.02 220) 18%,
-    oklch(72% 0.18 232) 55%,
-    transparent 72%
+    oklch(98% 0.04 95) 22%,
+    oklch(86% 0.18 78) 50%,
+    transparent 70%
+  );
+  clip-path: polygon(
+    50% 0%,
+    61% 35%,
+    98% 35%,
+    68% 57%,
+    79% 91%,
+    50% 70%,
+    21% 91%,
+    32% 57%,
+    2% 35%,
+    39% 35%
   );
   opacity: 0;
-  will-change: transform;
-  animation: sf-ball 2s ease-out infinite;
+  will-change: transform, opacity;
+  animation: sf-hit 2.6s ease-out infinite;
 }
 
-@keyframes sf-lunge {
+/* --- P1 attacks first half, recoils in the second --- */
+@keyframes sf-p1-body {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  14% {
+    transform: translateX(5cqmin);
+  } /* lunge in */
+  30% {
+    transform: translateX(0);
+  }
+  62% {
+    transform: translateX(-3cqmin) skewX(6deg);
+  } /* take the hit */
+  74% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes sf-p1-arm {
+  0%,
+  10%,
+  30%,
+  100% {
+    transform: scaleX(0.3);
+    opacity: 0.85;
+  }
+  18% {
+    transform: scaleX(2.6);
+    opacity: 1;
+  } /* fist extends */
+}
+
+/* --- P2 recoils first half, answers in the second --- */
+@keyframes sf-p2-body {
   0%,
   100% {
     transform: translateX(0);
   }
   18% {
-    transform: translateX(4cqmin);
+    transform: translateX(3cqmin) skewX(-6deg);
+  } /* take the hit */
+  30% {
+    transform: translateX(0);
   }
-  40% {
+  58% {
+    transform: translateX(-5cqmin);
+  } /* lunge in */
+  74% {
     transform: translateX(0);
   }
 }
 
-@keyframes sf-ball {
-  0% {
-    transform: translateX(0) scale(0.2);
-    opacity: 0;
-  }
-  15% {
-    transform: translateX(0) scale(1);
-    opacity: 1;
-  }
-  90% {
-    transform: translateX(54cqmin) scale(1.1);
-    opacity: 1;
-  }
+@keyframes sf-p2-arm {
+  0%,
+  50%,
+  74%,
   100% {
-    transform: translateX(58cqmin) scale(1.1);
+    transform: scaleX(0.3);
+    opacity: 0.85;
+  }
+  62% {
+    transform: scaleX(2.6);
+    opacity: 1;
+  } /* fist extends */
+}
+
+@keyframes sf-hit {
+  0%,
+  14%,
+  40%,
+  58%,
+  84%,
+  100% {
     opacity: 0;
+    transform: scale(0.4) rotate(0deg);
+  }
+  18% {
+    opacity: 1;
+    transform: translateX(7cqmin) scale(1) rotate(8deg);
+  } /* P1 lands on P2 (right) */
+  24% {
+    opacity: 0;
+    transform: translateX(7cqmin) scale(1.2);
+  }
+  62% {
+    opacity: 1;
+    transform: translateX(-7cqmin) scale(1) rotate(-8deg);
+  } /* P2 lands on P1 (left) */
+  68% {
+    opacity: 0;
+    transform: translateX(-7cqmin) scale(1.2);
   }
 }
 
@@ -1517,9 +1633,23 @@
     transform: translateX(30cqmin);
   }
 
-  /* Street Fighter — the Hadouken caught mid-screen. */
-  .sf-ball {
+  /* Street Fighter — P1 frozen mid-punch, fist extended, impact landed on P2. */
+  .sf-fighter--p1 {
+    transform: translateX(5cqmin);
+  }
+  .sf-fighter--p1::after {
+    transform: scaleX(2.6);
     opacity: 1;
-    transform: translateX(28cqmin) scale(1);
+  }
+  .sf-fighter--p2 {
+    transform: translateX(3cqmin) skewX(-6deg);
+  }
+  .sf-fighter--p2::after {
+    transform: scaleX(0.3);
+    opacity: 0.85;
+  }
+  .sf-hit {
+    opacity: 1;
+    transform: translateX(7cqmin) scale(1) rotate(8deg);
   }
 }
